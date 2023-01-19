@@ -34,7 +34,7 @@ const CheckoutForm = () => {
       //     try {
       const { data } = await axios.post("http://localhost:3001/api/checkout", {
         id,
-        amount: total * 100, //cents
+        amount: Math.trunc(total * 100), //cents
       });
       console.log(data);
 

@@ -10,8 +10,6 @@ router.post("/", async (req, res) => {
 
     const { id, amount } = req.body;
 
-    console.log(id, amount)
-    console.log(process.env.KEY)
     try {
 
         const paymentIntent = await stripe.paymentIntents.create({
@@ -21,12 +19,10 @@ router.post("/", async (req, res) => {
             confirm: true, // Confirma el pago y lo registra automáticamente
         });
 
-        console.log(paymentIntent)
-
-        res.status(200).json({ message: "Recibido." });
+        res.status(200).json({ message: "Successful Payment" });
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: error });
+        res.json({ message: error.raw.message });
     }
 });
 

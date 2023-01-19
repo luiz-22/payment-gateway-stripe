@@ -1,3 +1,4 @@
+import { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js"; // Me trae stripe y voy a poder cargar la conexión a la plataforma
@@ -13,10 +14,10 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutForm = () => {
+  const [loading, setLoading] = useState(false);
   const total = useSelector((state) => state.fakeStore.total);
   const stripe = useStripe();
   const elements = useElements();
-  // const cart = useSelector((state) => state.cart);
   // const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -27,22 +28,27 @@ const CheckoutForm = () => {
       type: "card",
       card: elements.getElement(CardElement), // Que elemento tiene el n° de tarjeta
     });
-    // setLoading(true);
+
+    setLoading(true);
 
     if (!error) {
       const { id } = paymentMethod;
-      //     try {
-      const { data } = await axios.post("http://localhost:3001/api/checkout", {
-        id,
-        amount: Math.trunc(total * 100), //cents
-      });
-      console.log(data);
+      try {
+        const { data } = await axios.post(
+          "http://localhost:3001/api/checkout",
+          {
+            id,
+            amount: Math.trunc(total * 100), //cents
+          }
+        );
+        console.log(data);
 
-      elements.getElement(CardElement).clear(); // Limpia el input
-      //     } catch (error) {
-      //       console.log(error);
-      //     }
-      //     setLoading(false);
+        elements.getElement(CardElement).clear(); // Limpia el input
+      } catch (error) {
+        console.log(error);
+      }
+
+      setLoading(false);
     } else console.log(error);
   };
 
@@ -54,8 +60,18 @@ const CheckoutForm = () => {
         Total &nbsp;&nbsp; U$D {total.toFixed(2)}
       </h3>
       <CardElement />
-      <button className="btn btn-success" style={{ marginTop: "1rem" }}>
-        Buy
+      <button
+        className="btn btn-success"
+        style={{ marginTop: "1rem" }}
+        disabled={!stripe} // Si existe el objeto stripe, me muestre el botón
+      >
+        {loading ? (
+          <div className="spinner-border text-light" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        ) : (
+          "Buy"
+        )}
       </button>
     </form>
   );

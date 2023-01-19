@@ -5,5 +5,4 @@ const checkout = require('./checkout.js');
 
 router.use('/api/checkout', checkout);
 
-
 module.exports = router;

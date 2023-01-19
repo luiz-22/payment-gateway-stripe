@@ -28,7 +28,7 @@ const PayGateway = () => {
         )}
       </main>
       <div className="container-fluid mt-4">
-        <div className="text-end">
+        <div className="text-center">
           <Link to="/">
             <button type="button" className="btn btn-primary ps-5 pe-5" style={{marginBottom: "2rem"}}>
               Back

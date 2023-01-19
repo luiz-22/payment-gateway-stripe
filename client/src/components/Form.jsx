@@ -9,7 +9,7 @@ import {
 } from "@stripe/react-stripe-js";
 
 const stripePromise = loadStripe(
-  "KEY=sk_test_51KZFYxGVqYV1yoOdVlvmdUHfot4xkZQIYVMjtEx6sJ7DVyeW7iwiK97uF7C62BcSWiLIJfsucc0CDrAwYL31vxc000x5nDd9wH"
+  "pk_test_51KZFYxGVqYV1yoOdeYDsBoB0xPjcoDAWxCxGpC8s8RPoPagm0ck5YAGyLrESugaMlpu2RxUn4Y78sQCfmDOgvbul008uLmzwWl"
 );
 
 const CheckoutForm = () => {
@@ -22,8 +22,6 @@ const CheckoutForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(process.env.KEY);
-
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       // Creo un método de pago
       type: "card",
@@ -32,27 +30,29 @@ const CheckoutForm = () => {
     // setLoading(true);
 
     if (!error) {
-      console.log(paymentMethod);
       const { id } = paymentMethod;
       //     try {
       const { data } = await axios.post("http://localhost:3001/api/checkout", {
-        stripeId: id,
-        amount: 74 * 100, //cents
+        id,
+        amount: total * 100, //cents
       });
       console.log(data);
-      //       elements.getElement(CardElement).clear(); // Limpia el input
+
+      elements.getElement(CardElement).clear(); // Limpia el input
       //     } catch (error) {
       //       console.log(error);
       //     }
       //     setLoading(false);
-    }
+    } else console.log(error);
   };
 
   // console.log(!stripe || loading);
 
   return (
     <form onSubmit={handleSubmit} className="card card-body">
-      <h3 style={{ marginBottom: "1rem", textAlign: "right" }}>Total &nbsp;&nbsp; U$D {total.toFixed(2)}</h3>
+      <h3 style={{ marginBottom: "1rem", textAlign: "right" }}>
+        Total &nbsp;&nbsp; U$D {total.toFixed(2)}
+      </h3>
       <CardElement />
       <button className="btn btn-success" style={{ marginTop: "1rem" }}>
         Buy

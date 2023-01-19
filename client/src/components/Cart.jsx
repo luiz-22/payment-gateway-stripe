@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import {removeFromCart} from "../redux/fakeStoreSlice"
+import { removeFromCart } from "../redux/fakeStoreSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -15,9 +15,11 @@ const Cart = () => {
                 <img src={item.image} alt={item.title} className="col-4" />
                 <section className="col-10">
                   <h5>{item.title}</h5>
-                  <span>U$D {item.price}</span>
-                  &nbsp;
-                  <button onClick={() => dispatch(removeFromCart(item.id))} className="btn btn-danger">
+                  <span style={{marginRight: "1rem"}}>U$D {item.price}</span>
+                  <button
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                    className="btn btn-danger"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"

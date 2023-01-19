@@ -1,3 +1,9 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .card {
   margin: 1rem 0;
 }
@@ -17,4 +23,8 @@
 .empty {
   margin: 1rem auto;
   padding: 1rem 2rem;
+}
+
+.center {
+  flex: 1;
 }

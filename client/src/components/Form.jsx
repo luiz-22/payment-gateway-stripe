@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js"; // Me trae stripe y voy a poder cargar la conexión a la plataforma
 import {
   Elements, // Engloba a cada componente, para que cada componente que contenga pueda acceder a la conexión de Stripe
@@ -12,9 +13,9 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutForm = () => {
+  const total = useSelector((state) => state.fakeStore.total);
   const stripe = useStripe();
   const elements = useElements();
-  // const total = useSelector((state) => state.total);
   // const cart = useSelector((state) => state.cart);
   // const [loading, setLoading] = useState(false);
 
@@ -51,8 +52,11 @@ const CheckoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="card card-body">
+      <h3 style={{ marginBottom: "1rem", textAlign: "right" }}>Total &nbsp;&nbsp; U$D {total.toFixed(2)}</h3>
       <CardElement />
-      <button className="btn btn-success">Buy</button>
+      <button className="btn btn-success" style={{ marginTop: "1rem" }}>
+        Buy
+      </button>
     </form>
   );
 };

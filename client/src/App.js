@@ -5,6 +5,7 @@ import { getProducts } from "./redux/actions"
 import { Routes, Route } from "react-router-dom"
 import Navbar from './components/NavBar';
 import { Home } from './components/Home';
+import Footer from './components/Footer';
 import PayGateway from './components/PayGateway';
 
 function App() {
@@ -18,10 +19,14 @@ function App() {
     <div className="App">
       <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/pay" element={<PayGateway />} />
-      </Routes>
+      <section className="center">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pay" element={<PayGateway />} />
+        </Routes>
+      </section>
+
+      <Footer />
     </div>
   );
 }

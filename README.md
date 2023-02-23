@@ -16,7 +16,7 @@ Aplicación web que implementa una pasarela de pagos con Stripe.
 
 ## Boilerplate
 
-El boilerplate contine el código, para guardar los registro en una base de datos Postgres a través de Sequelize, si así lo desea.
+El boilerplate contine el código para guardar los registro en una base de datos Postgres a través de Sequelize, si así lo desea.
 
 ## Tecnologías usadas
 

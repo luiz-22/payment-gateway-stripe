@@ -9,10 +9,9 @@ Aplicación web que implementa una pasarela de pagos con Stripe.
 
 ## Como usar
 
-- Clonar el repositorio: `git clone https://github.com/luiz-22/payment-gateway-stripe.git`
-- En la carpeta api: `npm i`
-- En la carpeta client: `npm i`
 - Crear una cuenta en Stripe y usar la keys que les provee para su funcionamiento.
+- `npm i`
+- `npm start`
 
 ## Boilerplate
 
